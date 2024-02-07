@@ -29,7 +29,7 @@ class UserLoginView(TemplateView):
             if user is not None:
                 login(request, user)
                 messages.success(request, "login successful", "success")
-                return redirect("users:register")
+                return redirect("users:user-home")
             else:
                 messages.warning(request, "login unsuccessful", "warning")
                 return render(request, self.template_name, {"form" : form})
