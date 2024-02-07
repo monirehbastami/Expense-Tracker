@@ -5,6 +5,11 @@ from django.contrib.auth import authenticate,login
 from django.contrib import messages
 from users.forms import UserLoginForm, UserRegisterForm
 from .models import User
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
+
+decorators = [never_cache, login_required(login_url='users:home')]
 
 
 class UserLoginView(TemplateView):
@@ -24,11 +29,12 @@ class UserLoginView(TemplateView):
             if user is not None:
                 login(request, user)
                 messages.success(request, "login successful", "success")
-                return redirect("users:home")
+                return redirect("users:register")
             else:
                 messages.warning(request, "login unsuccessful", "warning")
                 return render(request, self.template_name, {"form" : form})
-            
+        return render(request, self.template_name, {'form': form})   
+
 
 class UserRegisterView(TemplateView):
     template_name = "user_register_form.html"
@@ -46,5 +52,10 @@ class UserRegisterView(TemplateView):
             obj.set_password(form.cleaned_data["password"])
             obj.save()
             messages.success(request,'You register successfully')
-            return redirect("users:login")
-   
+            return redirect("users:home")
+        return render(request, self.template_name, {'form': form})
+
+
+@method_decorator(decorators, name="dispatch")
+class UserHomeView(TemplateView):
+    template_name = "user_home.html"
