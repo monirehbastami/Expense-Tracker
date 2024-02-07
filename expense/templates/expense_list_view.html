@@ -1,0 +1,21 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+<div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+    <div style="background-color:aquamarine;display:flex;justify-content:space-around">
+        <div>Title</div>
+        <div>User</div>
+        <div>Date</div>
+        <div>Category</div>
+    </div>
+    {% for obj in expenses %}
+    
+        <div style="display:flex;justify-content:space-around">
+            <div>{{obj.title}}</div>
+            <div>{{obj.user.username}}</div>
+            <div>{{obj.date}}</div>
+            <div>{{obj.category.title}}</div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
