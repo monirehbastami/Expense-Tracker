@@ -1,21 +1,35 @@
 {% extends 'home.html' %}
 {% load static %}
 {% block content %}
-<div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
-    <div style="background-color:aquamarine;display:flex;justify-content:space-around">
-        <div>Title</div>
-        <div>User</div>
-        <div>Date</div>
-        <div>Category</div>
-    </div>
-    {% for obj in expenses %}
+<!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com --> 
+<div class="flex flex-col max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+    <div class="overflow-x-auto mx-8 p-5">
+      <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full text-center text-sm font-light">
+            <thead class="border-b font-medium dark:border-neutral-500">
+              <tr>
+                <th scope="col" class="px-6 py-4">Title</th>
+                <th scope="col" class="px-6 py-4">User</th>
+                <th scope="col" class="px-6 py-4">Date</th>
+                <th scope="col" class="px-6 py-4">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for obj in expenses %}
     
-        <div style="display:flex;justify-content:space-around">
-            <div>{{obj.title}}</div>
-            <div>{{obj.user.username}}</div>
-            <div>{{obj.date}}</div>
-            <div>{{obj.category.title}}</div>
+                    <tr class="border-b dark:border-neutral-500">
+                        <td class="whitespace-nowrap px-6 py-4">{{obj.title}}</td>
+                        <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.user.username}}</td>
+                        <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.date}}</td>
+                        <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.category.title}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
         </div>
-    {% endfor %}
+      </div>
+    </div>
 </div>
+
 {% endblock %}
