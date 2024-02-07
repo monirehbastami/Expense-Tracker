@@ -10,7 +10,7 @@ decorators = [never_cache, login_required(login_url='users:home')]
 
 @method_decorator(decorators, name="dispatch")
 class ExpenseListView(ExpenseListMixin,ListView):
-    template_name = 'expense/expense_list_view.html'
+    template_name = 'expense_list_view.html'
     
     def get(self, request, *args, **kwargs):
         self.object_list = self.get_queryset()
