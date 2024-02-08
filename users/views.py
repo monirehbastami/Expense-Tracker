@@ -1,7 +1,7 @@
 from django.views import View
 from django.views.generic import TemplateView
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from users.forms import UserLoginForm, UserRegisterForm
 from .models import User
@@ -59,3 +59,8 @@ class UserRegisterView(TemplateView):
 @method_decorator(decorators, name="dispatch")
 class UserHomeView(TemplateView):
     template_name = "user_home.html"
+
+class UserLogoutView(TemplateView):
+    def get(self,request):
+        logout(request)
+        return redirect('users:home')

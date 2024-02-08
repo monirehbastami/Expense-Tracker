@@ -13,6 +13,16 @@ class ExpenseListMixin:
 class ExpenseCreateMixin:
     model = Expense
     fields = ['title','amount','date','category']
+    title = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'class': 'your-class-name'})
+    )
+    amount = forms.FloatField(
+        widget=forms.NumberInput(attrs={'class': 'your-class-name'})
+    )
+    date = forms.DateField(
+        widget=forms.DateInput(attrs={'class': 'your-class-name'})
+    )
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
         to_field_name='title',
@@ -27,7 +37,7 @@ class ExpenseCreateMixin:
         return form
     
     def get_success_url(self):
-        return reverse('expense:expense_detail', kwargs={'pk': self.object.pk})
+        return reverse('expense:list')
     
 
 class ExpenseUpdateMixin:
@@ -50,7 +60,7 @@ class ExpenseUpdateMixin:
         return form
     
     def get_success_url(self):
-        return reverse('expense:expense_detail', kwargs={'pk': self.object.pk})
+        return reverse('expense:list')
     
 
 

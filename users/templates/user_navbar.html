@@ -48,7 +48,7 @@
         data-te-dropdown-alignment="end">
         <a
           class="mr-4 flex items-center text-neutral-600 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-          href="#">
+          href="{% url 'users:logout' %}">
           <span class="[&>svg]:w-5">
             <svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M768 106V184c97.2 76 160 194.8 160 328 0 229.6-186.4 416-416 416S96 741.6 96 512c0-133.2 62.8-251.6 160-328V106C121.6 190.8 32 341.2 32 512c0 265.2 214.8 480 480 480s480-214.8 480-480c0-170.8-89.6-321.2-224-406z" fill="" /><path d="M512 32c-17.6 0-32 14.4-32 32v448c0 17.6 14.4 32 32 32s32-14.4 32-32V64c0-17.6-14.4-32-32-32z" fill="" /></svg>
           </span>
@@ -57,13 +57,14 @@
       
       </div>
       <div class="relative">
-       
-          <img
-            src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg"
-            class="rounded-full"
-            style="height: 25px; width: 25px"
-            alt=""
-            loading="lazy" />
+          
+            <img
+              src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg"
+              class="rounded-full"
+              style="height: 25px; width: 25px"
+              alt=""
+              loading="lazy" />
+          
 
       </div>
     </div>
