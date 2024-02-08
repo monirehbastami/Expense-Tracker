@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com --> 
-<div class="flex flex-col max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+<div class="flex flex-col max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex  flex-1">
     <div class="overflow-x-auto mx-8 p-5">
       <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
         <div class="overflow-hidden">
@@ -13,6 +13,7 @@
                 <th scope="col" class="px-6 py-4">User</th>
                 <th scope="col" class="px-6 py-4">Date</th>
                 <th scope="col" class="px-6 py-4">Category</th>
+                <th scope="col" class="px-6 py-4">Manage</th>
               </tr>
             </thead>
             <tbody>
@@ -23,6 +24,7 @@
                         <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.user.username}}</td>
                         <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.date}}</td>
                         <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.category.title}}</td>
+                        <td class="whitespace-nowrap px-6 py-4 font-medium text-center"><Span class="underline text-blue-400 mt-1"><a class="nav-link active" aria-current="page" href="{% url 'expense:update' pk=obj.pk %}">Edit</a></Span></td>
                     </tr>
                 {% endfor %}
             </tbody>

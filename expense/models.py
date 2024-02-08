@@ -7,7 +7,7 @@ class Expense(models.Model):
     title = models.CharField(max_length=100)
     amount = models.FloatField()
     date = models.DateField()
-    category = models.ManyToManyField(Category, related_name='cat_exp')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     user = models.ForeignKey(User,on_delete=models.CASCADE, default=1)
 
 
