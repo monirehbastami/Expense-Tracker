@@ -1,49 +1,51 @@
-{% extends 'home.html' %}
-{% load static %}
+  {% extends 'home.html' %}
+  {% load static %}
 
-{% block content %}
+  {% block content %}
 
-<!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com --> 
-<div class="flex flex-col max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex  flex-1">
-    <div class="overflow-x-auto mx-8 p-5">
-      <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-        <div class="overflow-hidden">
-          
+  <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com --> 
+  <div class="flex flex-col max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex  flex-1">
+      <div class="overflow-x-auto mx-8 p-5">
+        <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+          <div class="overflow-hidden">
+            
 
-          <div class="flex w-48 justify-between	">
-              <div>
-                <Span class="underline mt-1"><a class="nav-link active" aria-current="page" href="{% url 'users:user-home' %}">Home</a></Span>
-              </div>
-              <div>
-                <Span class="underline text-blue-400 mt-1"><a class="nav-link active" aria-current="page" href="{% url 'expense:create' %}">New Expense</a></Span>
-              </div>
+            <div class="flex w-48 justify-between	">
+                <div>
+                  <Span class="underline mt-1"><a class="nav-link active" aria-current="page" href="{% url 'users:user-home' %}">Home</a></Span>
+                </div>
+                <div>
+                  <Span class="underline text-blue-400 mt-1"><a class="nav-link active" aria-current="page" href="{% url 'expense:create' %}">New Expense</a></Span>
+                </div>
+            </div>
+            <table class="min-w-full text-center text-sm font-light">
+              <thead class="border-b font-medium dark:border-neutral-500">
+                <tr>
+                  <th scope="col" class="px-6 py-4">Title</th>
+                  <th scope="col" class="px-6 py-4">User</th>
+                  <th scope="col" class="px-6 py-4">Amount</th>
+                  <th scope="col" class="px-6 py-4">Date</th>
+                  <th scope="col" class="px-6 py-4">Category</th>
+                  <th scope="col" class="px-6 py-4">Manage</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for obj in expenses %}
+      
+                      <tr class="border-b dark:border-neutral-500">
+                          <td class="whitespace-nowrap px-6 py-4">{{obj.title}}</td>
+                          <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.user.username}}</td>
+                          <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.amount}}</td>
+                          <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.date}}</td>
+                          <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.category.title}}</td>
+                          <td class="whitespace-nowrap px-6 py-4 font-medium text-center"><Span class="underline text-blue-400 mt-1"><a class="nav-link active" aria-current="page" href="{% url 'expense:update' pk=obj.pk %}">Edit</a></Span></td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
           </div>
-          <table class="min-w-full text-center text-sm font-light">
-            <thead class="border-b font-medium dark:border-neutral-500">
-              <tr>
-                <th scope="col" class="px-6 py-4">Title</th>
-                <th scope="col" class="px-6 py-4">User</th>
-                <th scope="col" class="px-6 py-4">Date</th>
-                <th scope="col" class="px-6 py-4">Category</th>
-                <th scope="col" class="px-6 py-4">Manage</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for obj in expenses %}
-    
-                    <tr class="border-b dark:border-neutral-500">
-                        <td class="whitespace-nowrap px-6 py-4">{{obj.title}}</td>
-                        <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.user.username}}</td>
-                        <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.date}}</td>
-                        <td class="whitespace-nowrap px-6 py-4 font-medium">{{obj.category.title}}</td>
-                        <td class="whitespace-nowrap px-6 py-4 font-medium text-center"><Span class="underline text-blue-400 mt-1"><a class="nav-link active" aria-current="page" href="{% url 'expense:update' pk=obj.pk %}">Edit</a></Span></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-          </table>
         </div>
       </div>
-    </div>
-</div>
+  </div>
 
-{% endblock %}
+  {% endblock %}

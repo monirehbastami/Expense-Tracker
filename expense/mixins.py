@@ -4,7 +4,7 @@ from expense.models import Expense
 from django import forms
 from categories.models import Category
 from django.urls import reverse
-
+from .form import ExpenseCreateForm
 
 class ExpenseListMixin:
     model = Expense
@@ -12,27 +12,10 @@ class ExpenseListMixin:
 
 class ExpenseCreateMixin:
     model = Expense
-    fields = ['title','amount','date','category']
-    title = forms.CharField(
-        max_length=100,
-        widget=forms.TextInput(attrs={'class': 'your-class-name'})
-    )
-    amount = forms.FloatField(
-        widget=forms.NumberInput(attrs={'class': 'your-class-name'})
-    )
-    date = forms.DateField(
-        widget=forms.DateInput(attrs={'class': 'your-class-name'})
-    )
-    category = forms.ModelChoiceField(
-        queryset=Category.objects.all(),
-        to_field_name='title',
-        required=True,  
-        widget=forms.Select({'class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2'})
-    )
+    form_class = ExpenseCreateForm
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        form.fields['category'] = self.category
         form.instance.user = self.request.user
         return form
     
@@ -42,13 +25,7 @@ class ExpenseCreateMixin:
 
 class ExpenseUpdateMixin:
     model = Expense
-    fields = ['title','amount','date','category']
-    category = forms.ModelChoiceField(
-        queryset=Category.objects.all(),
-        to_field_name='title',
-        required=True,  
-        widget=forms.Select({'class': 'w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2'})
-    )
+    form_class = ExpenseCreateForm
     
     def get_object(self, queryset=None):
         return get_object_or_404(Expense, pk=self.kwargs['pk'], user=self.request.user)

@@ -3,10 +3,10 @@
 {% block content %}
 
 <div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg  justify-center flex-1">
-    <div>
+    <div class="p-5">
         <Span class="underline mt-1"><a class="nav-link active" aria-current="page" href="{% url 'users:user-home' %}">Home</a></Span>
     </div>
-    <form action="#" method="POST" class="w-1/4">
+    <form action="#" method="POST" class="w-1/4 p-5">
         {% csrf_token %}
         {{ form.as_p }}    
            
