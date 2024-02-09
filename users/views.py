@@ -5,7 +5,6 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from expense.mixins import ExpenseListMixin
-from users.charts import create_expense_chart
 from users.forms import UserLoginForm, UserRegisterForm
 from .models import User
 from django.utils.decorators import method_decorator
@@ -14,7 +13,11 @@ from django.views.decorators.cache import never_cache
 from matplotlib import pyplot as plt
 from expense.models import Expense
 import io
+import calendar
+from django.db.models import Sum
 import urllib,base64
+from django.db.models.functions import ExtractMonth
+
 
 decorators = [never_cache, login_required(login_url='users:home')]
 
@@ -70,8 +73,17 @@ class UserHomeView(ExpenseListMixin,ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         expenses = Expense.objects.filter(user=self.request.user)
-        categories = [expense.category.title for expense in expenses]
-        amounts = [expense.amount for expense in expenses]
+        
+        category_expenses = {}
+        for expense in expenses:
+            if expense.category.title in category_expenses:
+                category_expenses[expense.category.title] += expense.amount
+            else:
+                category_expenses[expense.category.title] = expense.amount
+
+        categories = list(category_expenses.keys())
+        amounts = list(category_expenses.values())
+
         fig, ax = plt.subplots()
         ax.bar(categories, amounts)
         buf = io.BytesIO()
@@ -81,7 +93,27 @@ class UserHomeView(ExpenseListMixin,ListView):
         uri = urllib.parse.quote(string)
         context['data1'] = uri
 
-        
+        monthly_expenses = expenses.annotate(month=ExtractMonth('date')).values('month').annotate(
+                                                                        total_amount=Sum('amount'))
+
+        monthly_expenses_dict = {}
+        for expense in monthly_expenses:
+            month = calendar.month_name[expense['month']]
+            total_amount = expense['total_amount']
+            monthly_expenses_dict[month] = total_amount
+
+        months = list(monthly_expenses_dict.keys())
+        amounts = list(monthly_expenses_dict.values())
+
+        fig, ax = plt.subplots()
+    
+        ax.bar(months, amounts,color='green')
+        buf = io.BytesIO()
+        fig.savefig(buf, format='png')
+        buf.seek(0)
+        string = base64.b64encode(buf.read()).decode('utf-8')
+        uri = urllib.parse.quote(string)
+        context['data2'] = uri
 
         return context
     
