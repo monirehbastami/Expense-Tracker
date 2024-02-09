@@ -8,6 +8,8 @@ from .models import User
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
+from matplotlib import pyplot as plt
+
 
 decorators = [never_cache, login_required(login_url='users:home')]
 
@@ -29,7 +31,7 @@ class UserLoginView(TemplateView):
             if user is not None:
                 login(request, user)
                 messages.success(request, "login successful", "success")
-                return redirect("users:user-home")
+                return redirect("users:dashboard")
             else:
                 messages.warning(request, "login unsuccessful", "warning")
                 return render(request, self.template_name, {"form" : form})
@@ -59,6 +61,7 @@ class UserRegisterView(TemplateView):
 @method_decorator(decorators, name="dispatch")
 class UserHomeView(TemplateView):
     template_name = "user_home.html"
+
 
 class UserLogoutView(TemplateView):
     def get(self,request):
