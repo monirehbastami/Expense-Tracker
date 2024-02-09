@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-mk29vth#lu3gc1#&h$&&^h&nks*g51ohck3me*gigl%wi9%pd7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".vercel.pp","localhost", "127.0.0.1",'https://expense-tracker-lyart-five.vercel.app/','expense-tracker-ig9gl3j59-monirehbastami.vercel.app']
+ALLOWED_HOSTS = [".vercel.pp","localhost", "127.0.0.1",'https://expense-tracker-xi-pearl.vercel.app/']
 
 
 # Application definition
